@@ -18,7 +18,7 @@
                             mode="inline"
                     >
                         <!--在此处遍历a-sub-menu-->
-                        <a-sub-menu v-for="par in list" :key="par.name" v-if="par.path!='/'">
+                        <a-sub-menu v-for="par in list" :key="par.name" v-if="par.name!='empty'">
                             <!--一级菜单的图标和内容-->
                             <span slot="title" v-if="par.meta.icon">
                                 <a-icon :type="par.meta.icon"/><span>{{par.meta.cname}}</span>

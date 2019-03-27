@@ -423,6 +423,8 @@ const routes = [
             },
         ]
     },
-    {path:'/',redirect:'/company'}
+    {path:'*',name:'empty',redirect:'/company'},
+    {path:'/login',name:'empty',redirect:'/company'},
+    {path:'/',name:'empty',redirect:'/company'}
 ];
 export default routes
