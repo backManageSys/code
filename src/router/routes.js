@@ -431,7 +431,7 @@ const routes = [
         ]
     },
     {path:'*',name:'empty',redirect:'/company'},
-    {path:'/login',name:'empty',redirect:'/company'},
+    {path:'/login',name:'empty',component:() => import('@/components/Login/login.vue')},
     {path:'/',name:'empty',redirect:'/company'}
 ];
 export default routes
