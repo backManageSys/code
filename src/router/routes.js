@@ -15,6 +15,7 @@
 * */
 import layout from '../views/layout'
 import HelloWorld from '../components/HelloWorld'
+const requireAuth= true;
 const routes = [
     {
         path: '/company',
@@ -27,7 +28,13 @@ const routes = [
                 path: 'announcement',
                 name :'announcement',
                 component:HelloWorld,
-                meta: {cname: '公告管理', role: '公告管理'},
+                meta: {cname: '公告管理', role: '公告管理',requireAuth: requireAuth,},
+            },
+            {
+                path: 'information',
+                name :'information',
+                component:HelloWorld,
+                meta: {cname: '数据管理', role: '数据管理',requireAuth: requireAuth,},
             },
             {
                 path: 'team',
@@ -39,13 +46,13 @@ const routes = [
                         path: 'teams',
                         name : 'teams',
                         component:HelloWorld,
-                        meta: {cname: '所有团队', role: '所有团队'},
+                        meta: {cname: '所有团队', role: '所有团队',requireAuth: requireAuth,},
                     },
                     {
                         path: 'teamAdd',
                         name : 'teamAdd',
                         component:HelloWorld,
-                        meta: {cname: '添加团队', role: '添加团队'},
+                        meta: {cname: '添加团队', role: '添加团队',requireAuth: requireAuth,},
                     }
                 ]
             },
@@ -59,13 +66,13 @@ const routes = [
                         path: 'addAdmin',
                         name:'addAdmin',
                         component:HelloWorld,
-                        meta: {cname: '添加管理员', role: '添加管理员'},
+                        meta: {cname: '添加管理员', role: '添加管理员',requireAuth: requireAuth,},
                     },
                     {
                         path: 'admins',
                         name:'admins',
                         component:HelloWorld,
-                        meta: {cname: '所有管理员', role: '所有管理员'},
+                        meta: {cname: '所有管理员', role: '所有管理员',requireAuth: requireAuth,},
                     }
                 ]
             },
@@ -79,13 +86,13 @@ const routes = [
                         path: 'postAdd',
                         name:'postAdd',
                         component:HelloWorld,
-                        meta: {cname: '岗位添加', role: '岗位添加'},
+                        meta: {cname: '岗位添加', role: '岗位添加',requireAuth: requireAuth,},
                     },
                     {
                         path: 'allPost',
                         name:'allPost',
                         component:HelloWorld,
-                        meta: {cname: '所有岗位', role: '所有岗位'},
+                        meta: {cname: '所有岗位', role: '所有岗位',requireAuth: requireAuth,},
                     }
                 ]
             },
@@ -99,19 +106,19 @@ const routes = [
                         path: 'permission',
                         name:'permission',
                         component:HelloWorld,
-                        meta: {cname: '分配权限', role: '分配权限'},
+                        meta: {cname: '分配权限', role: '分配权限',requireAuth: requireAuth,},
                     },
                     {
                         path: 'singlePermission',
                         name:'singlePermission',
                         component:HelloWorld,
-                        meta: {cname: '某个职位权限查询', role: '某个职位权限查询'},
+                        meta: {cname: '某个职位权限查询', role: '某个职位权限查询',requireAuth: requireAuth,},
                     },
                     {
                         path: 'allPermission',
                         name:'allPermission',
                         component:HelloWorld,
-                        meta: {cname: '所有权限查询', role: '所有权限查询'},
+                        meta: {cname: '所有权限查询', role: '所有权限查询',requireAuth: requireAuth,},
                     }
                 ]
             },
@@ -125,19 +132,19 @@ const routes = [
                         path: 'cardAdd',
                         name:'cardAdd',
                         component:HelloWorld,
-                        meta: {cname: '公司所有银行卡', role: '公司所有银行卡'},
+                        meta: {cname: '公司所有银行卡', role: '公司所有银行卡',requireAuth: requireAuth,},
                     },
                     {
                         path: 'cards',
                         name:'cards',
                         component:HelloWorld,
-                        meta: {cname: '公司添加银行卡', role: '公司添加银行卡'},
+                        meta: {cname: '公司添加银行卡', role: '公司添加银行卡',requireAuth: requireAuth,},
                     },
                     {
                         path: 'personalCards',
                         name:'personalCards',
                         component:HelloWorld,
-                        meta: {cname: '所有个人银行卡', role: '所有个人银行卡'},
+                        meta: {cname: '所有个人银行卡', role: '所有个人银行卡',requireAuth: requireAuth,},
                     },
                 ]
             },
@@ -145,13 +152,13 @@ const routes = [
                 path: 'riskControl',
                 name:'riskControl',
                 component:HelloWorld,
-                meta: {cname: '风控管理', role: '风控管理'},
+                meta: {cname: '风控管理', role: '风控管理',requireAuth: requireAuth,},
             },
             {
                 path: 'settings',
                 name:'settings',
                 component:HelloWorld,
-                meta: {cname: '系统设置', role: '系统设置'},
+                meta: {cname: '系统设置', role: '系统设置',requireAuth: requireAuth,},
             },
             {
                 path: 'operations',
@@ -163,19 +170,19 @@ const routes = [
                         path: 'addStair',
                         name:'addStair',
                         component:HelloWorld,
-                        meta: {cname: '添加通道', role: '添加通道'},
+                        meta: {cname: '添加通道', role: '添加通道',requireAuth: requireAuth,},
                     },
                     {
                         path: 'editOperations',
                         name:'editOperations',
                         component:HelloWorld,
-                        meta: {cname: '修改通道', role: '修改通道'},
+                        meta: {cname: '修改通道', role: '修改通道',requireAuth: requireAuth,},
                     },
                     {
                         path: 'terminationOperations',
                         name:'terminationOperations',
                         component:HelloWorld,
-                        meta: {cname: '停用通道', role: '停用通道'},
+                        meta: {cname: '停用通道', role: '停用通道',requireAuth: requireAuth,},
                     }
                 ]
             },
@@ -183,7 +190,7 @@ const routes = [
                 path: 'logDetails',
                 name:'logDetails',
                 component:HelloWorld,
-                meta: {cname: '日志明细', role: '日志明细'},
+                meta: {cname: '日志明细', role: '日志明细',requireAuth: requireAuth,},
             }
         ]
     },
@@ -198,31 +205,31 @@ const routes = [
                 path: 'userInfo',
                 name:'userInfo',
                 component:HelloWorld,
-                meta: {cname: '用户信息', role: '用户信息'},
+                meta: {cname: '用户信息', role: '用户信息',requireAuth: requireAuth,},
             },
             {
                 path: 'agency',
                 name:'agency',
                 component:HelloWorld,
-                meta: {cname: '代理管理', role: '代理管理'},
+                meta: {cname: '代理管理', role: '代理管理',requireAuth: requireAuth,},
                 children: [
                     {
                         path: 'addAgency',
                         name:'addAgency',
                         component:HelloWorld,
-                        meta: {cname: '添加代理', role: '添加代理'},
+                        meta: {cname: '添加代理', role: '添加代理',requireAuth: requireAuth,},
                     },
                     {
                         path: 'agents',
                         name:'agents',
                         component:HelloWorld,
-                        meta: {cname: '所有代理', role: '所有代理'},
+                        meta: {cname: '所有代理', role: '所有代理',requireAuth: requireAuth,},
                     },
                     {
                         path: 'IAgent',
                         name:'IAgent',
                         component:HelloWorld,
-                        meta: {cname: '我是代理', role: '我是代理'},
+                        meta: {cname: '我是代理', role: '我是代理',requireAuth: requireAuth,},
                     }
                 ]
             },
@@ -236,19 +243,19 @@ const routes = [
                         path: 'addSupplier',
                         name:'addSupplier',
                         component:HelloWorld,
-                        meta: {cname: '添加供码用户', role: '添加供码用户'},
+                        meta: {cname: '添加供码用户', role: '添加供码用户',requireAuth: requireAuth,},
                     },
                     {
                         path: 'suppliers',
                         name:'suppliers',
                         component:HelloWorld,
-                        meta: {cname: '所有供码用户', role: '所有供码用户'},
+                        meta: {cname: '所有供码用户', role: '所有供码用户',requireAuth: requireAuth,},
                     },
                     {
                         path: 'ISupplier',
                         name:'ISupplier',
                         component:HelloWorld,
-                        meta: {cname: '我是供码用户', role: '我是供码用户'},
+                        meta: {cname: '我是供码用户', role: '我是供码用户',requireAuth: requireAuth,},
                     }
                 ]
             },
@@ -262,31 +269,31 @@ const routes = [
                         path: 'addMerchant',
                         name:'addMerchant',
                         component:HelloWorld,
-                        meta: {cname: '添加商户', role: '添加商户'},
+                        meta: {cname: '添加商户', role: '添加商户',requireAuth: requireAuth,},
                     },
                     {
                         path: 'waitApprovalMer',
                         name:'waitApprovalMer',
                         component:HelloWorld,
-                        meta: {cname: '审批商户', role: '审批商户'},
+                        meta: {cname: '审批商户', role: '审批商户',requireAuth: requireAuth,},
                     },
                     {
                         path: 'merchants',
                         name:'merchants',
                         component:HelloWorld,
-                        meta: {cname: '所有商户', role: '所有商户'},
+                        meta: {cname: '所有商户', role: '所有商户',requireAuth: requireAuth,},
                     },
                     {
                         path: 'IMerchant',
                         name:'IMerchant',
                         component:HelloWorld,
-                        meta: {cname: '我是商户', role: '我是商户'},
+                        meta: {cname: '我是商户', role: '我是商户',requireAuth: requireAuth,},
                     },
                     {
                         path: 'myMerchants',
                         name:'myMerchants',
                         component:HelloWorld,
-                        meta: {cname: '我的商户', role: '我的商户'},
+                        meta: {cname: '我的商户', role: '我的商户',requireAuth: requireAuth,},
                     }
                 ]
             },
@@ -300,19 +307,19 @@ const routes = [
                         path: 'addCardPersonal',
                         name:'addCardPersonal',
                         component:HelloWorld,
-                        meta: {cname: '个人添加银行卡', role: '个人添加银行卡'},
+                        meta: {cname: '个人添加银行卡', role: '个人添加银行卡',requireAuth: requireAuth,},
                     },
                     {
                         path: 'cardsPersonal',
                         name:'cardsPersonal',
                         component:HelloWorld,
-                        meta: {cname: '个人银行卡', role: '个人银行卡'},
+                        meta: {cname: '个人银行卡', role: '个人银行卡',requireAuth: requireAuth,},
                     },
                     {
                         path: 'personalExtractMoneyHistory',
                         name:'personalExtractMoneyHistory',
                         component:HelloWorld,
-                        meta: {cname: '个人提现历史', role: '个人提现历史'},
+                        meta: {cname: '个人提现历史', role: '个人提现历史',requireAuth: requireAuth,},
                     },
                 ]
             },
@@ -320,7 +327,7 @@ const routes = [
                 path: 'getQrCode',
                 name:'getQrCode',
                 component:HelloWorld,
-                meta: {cname: '获取二维码', role: '获取二维码'},
+                meta: {cname: '获取二维码', role: '获取二维码',requireAuth: requireAuth,},
             }
         ]
     },
@@ -335,25 +342,25 @@ const routes = [
                 path: 'withdrewWaiting',
                 name:'withdrewWaiting',
                 component:HelloWorld,
-                meta: {cname: '抢单', role: '抢单'},
+                meta: {cname: '抢单', role: '抢单',requireAuth: requireAuth,},
             },
             {
                 path: 'orderForms',
                 name:'orderForms',
                 component:HelloWorld,
-                meta: {cname: '处理订单', role: '处理订单'},
+                meta: {cname: '处理订单', role: '处理订单',requireAuth: requireAuth,},
             },
             {
                 path: 'extractMoneyHistory',
                 name:'extractMoneyHistory',
                 component:HelloWorld,
-                meta: {cname: '提现历史', role: '提现历史'},
+                meta: {cname: '提现历史', role: '提现历史',requireAuth: requireAuth,},
             },
             {
                 path: 'c2p',
                 name:'c2p',
                 component:HelloWorld,
-                meta: {cname: '添加内卡账变', role: '添加内卡账变'},
+                meta: {cname: '添加内卡账变', role: '添加内卡账变',requireAuth: requireAuth,},
             }
         ]
     },
@@ -368,31 +375,31 @@ const routes = [
                 path: 'receiveCodeReport',
                 name:'receiveCodeReport',
                 component:HelloWorld,
-                meta: {cname: '收款码报表', role: '收款码报表'},
+                meta: {cname: '收款码报表', role: '收款码报表',requireAuth: requireAuth,},
             },
             {
                 path: 'merchantsReport',
                 name:'merchantsReport',
                 component:HelloWorld,
-                meta: {cname: '商户报表', role: '商户报表'},
+                meta: {cname: '商户报表', role: '商户报表',requireAuth: requireAuth,},
             },
             {
                 path: 'localTeamReport',
                 name:'localTeamReport',
                 component:HelloWorld,
-                meta: {cname: '供码用户报表', role: '供码用户报表'},
+                meta: {cname: '供码用户报表', role: '供码用户报表',requireAuth: requireAuth,},
             },
             {
                 path: 'fundReport',
                 name:'fundReport',
                 component:HelloWorld,
-                meta: {cname: '资金报表', role: '资金报表'},
+                meta: {cname: '资金报表', role: '资金报表',requireAuth: requireAuth,},
             },
             {
                 path: 'agencyReport',
                 name:'agencyReport',
                 component:HelloWorld,
-                meta: {cname: '代理报表', role: '代理报表'},
+                meta: {cname: '代理报表', role: '代理报表',requireAuth: requireAuth,},
             }
         ]
     },
@@ -407,19 +414,19 @@ const routes = [
                 path: 'orderDetails',
                 name:'orderDetails',
                 component:HelloWorld,
-                meta: {cname: '订单明细', role: '订单明细'},
+                meta: {cname: '订单明细', role: '订单明细',requireAuth: requireAuth,},
             },
             {
                 path: 'codeChangeOrder',
                 name:'codeChangeOrder',
                 component:HelloWorld,
-                meta: {cname: '内部码帐变订单', role: '内部码帐变订单'},
+                meta: {cname: '内部码帐变订单', role: '内部码帐变订单',requireAuth: requireAuth,},
             },
             {
                 path: 'cardChangeOrder',
                 name:'cardChangeOrder',
                 component:HelloWorld,
-                meta: {cname: '内部卡帐变订单', role: '内部卡帐变订单'},
+                meta: {cname: '内部卡帐变订单', role: '内部卡帐变订单',requireAuth: requireAuth,},
             },
         ]
     },
