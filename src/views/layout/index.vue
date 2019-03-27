@@ -1,3 +1,4 @@
+
 <!--项目主组件，包含了页头和左侧导航菜单，以及路由出口  也就是主内容区-->
 
 <template>
@@ -5,7 +6,7 @@
         <template>
             <a-layout id="components-layout-demo-side" style="min-height: 100vh">
                 <!--左侧选项菜单-->
-                <a-layout-sider collapsible v-model="collapsed">
+                <a-layout-sider collapsible v-model="collapsed" >
                     <!---->
                     <div class="logo"/>
                     <a-menu @click="handleClick"
@@ -20,8 +21,7 @@
                         <a-sub-menu v-for="par in list" :key="par.name" v-if="par.path!='/'">
                             <!--一级菜单的图标和内容-->
                             <span slot="title" v-if="par.meta.icon">
-                                <a-icon :type="par.meta.icon"/>
-                                <span>{{par.meta.cname}}</span>
+                                <a-icon :type="par.meta.icon"/><span>{{par.meta.cname}}</span>
                             </span>
                             <!--二级菜单-->
                             <template v-for="son in par.children">
@@ -31,20 +31,14 @@
                                     <a-menu-item v-for="item in son.children" :key="item.name">
                                         <!--mySelectedKeys点击标签页时需要用来更新——当前选中的Slider项-->
                                         <!--myOpenKeys点击标签页时需要用来更新——当前展开的Slider选项组,myOpenKeys:par.name+','+son.name-->
-                                        <router-link
-                                            :to="{path:`${par.path}/${son.path}/${item.path}`,query:{mySelect:`${item.name}-${par.name}+${son.name}`}}">
-                                            {{item.meta.cname}}
-                                        </router-link>
+                                        <router-link :to="{path:`${par.path}/${son.path}/${item.path}`,query:{mySelect:`${item.name}-${par.name}+${son.name}`}}">{{item.meta.cname}}</router-link>
                                     </a-menu-item>
                                 </a-sub-menu>
                                 <!--没有children则直接显示为a-menu-item项-->
                                 <a-menu-item v-else="" :key="son.name">
                                     <!--mySelectedKeys点击标签页时需要用来更新——当前选中的Slider项-->
                                     <!--myOpenKeys点击标签页时需要用来更新——当前展开的Slider选项组,myOpenKeys:-->
-                                    <router-link
-                                        :to="{path:`${par.path}/${son.path}`,query: {mySelect:`${son.name}-${par.name}`}}">
-                                        {{son.meta.cname}}
-                                    </router-link>
+                                    <router-link :to="{path:`${par.path}/${son.path}`,query: {mySelect:`${son.name}-${par.name}`}}">{{son.meta.cname}}</router-link>
                                 </a-menu-item>
                             </template>
                         </a-sub-menu>
@@ -69,9 +63,7 @@
                                             v-for="pane in panes"
                                             :key="pane.key"
                                         >
-                                            <span slot="tab">
-                                                <router-link :to="pane.path">{{pane.title}}</router-link>
-                                            </span>
+                                            <span slot="tab"><router-link :to="pane.path">{{pane.title}}</router-link></span>
                                         </a-tab-pane>
                                     </a-tabs>
                                 </div>
@@ -85,11 +77,9 @@
                         <!--主体内容-->
                         <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
                             <div>
-                                你好
                                 <transition name="fade-transform" mode="out-in">
-                                    <router-view/>
+                                    <router-view />
                                 </transition>
-                                结尾
                             </div>
                         </div>
                     </a-layout-content>
@@ -105,7 +95,6 @@
 
 <script>
     import list from '../../router/routes'
-
     export default {
         name: 'layout',
         data() {
@@ -114,50 +103,49 @@
                 list: list,
                 activeKey: 'company',
                 newTabIndex: 0,
-                panes: [],//标签页数组
-                currentOpenKeys: [],
-                currentSelectedKeys: [],
+                panes:[],//标签页数组
+                currentOpenKeys:[],
+                currentSelectedKeys:[],
             }
         },
         methods: {
             //点击侧边栏的每个item执行 —— 添加 一个标签页
-            handleClick(e) {
+            handleClick (e) {
                 this.currentOpenKeys = [];
                 this.currentSelectedKeys = [];
                 // 更新当前应该被选中的标签
                 // 新建一个标签按钮
-                let openKeysStr = '';
-                let openKeys = '';
-                let selectedKeys = '';
-                if (this.$route.query.mySelect) {
-                    openKeysStr = this.$route.query.mySelect.substr(this.$route.query.mySelect.indexOf('-') + 1);
+                let openKeysStr ='';
+                let openKeys ='';
+                let selectedKeys ='';
+                if (this.$route.query.mySelect){
+                    openKeysStr = this.$route.query.mySelect.substr(this.$route.query.mySelect.indexOf('-')+1);
                     openKeys = [];
                     openKeysStr.indexOf('+') >= 0 ? openKeys = openKeysStr.split('+') : openKeys.push(openKeysStr);
                     selectedKeys = [];
-                    selectedKeys.push(this.$route.query.mySelect.substr(0, this.$route.query.mySelect.indexOf('-')));
+                    selectedKeys.push(this.$route.query.mySelect.substr(0,this.$route.query.mySelect.indexOf('-')));
                     this.currentOpenKeys = [...openKeys];
                     this.currentSelectedKeys = [...selectedKeys];
                 }
 
                 let tab = {
-                    title: this.$route.meta.cname,
-                    path: this.$route.path,
-                    key: this.$route.path,
-                    openKeys: openKeys || [],
-                    selectedKeys: selectedKeys || [],
+                    title:this.$route.meta.cname,
+                    path:this.$route.path,
+                    key:this.$route.path,
+                    openKeys:openKeys || [],
+                    selectedKeys:selectedKeys || [],
                 };
                 this.activeKey = tab.path;
                 //如果已经存在这个tab标签页。则不再重复添加，否则添加
-                let temp = this.panes.map(function (val) {
-                    return JSON.stringify(val)
-                });
+                let temp = this.panes.map(function(val){return JSON.stringify(val)});
                 if (!temp.includes(JSON.stringify(tab))) {
                     this.panes.push(tab);
                 }
             },
             callback(key) {
+                // console.log(key,'key')
             },
-            tabClick(a) {
+            tabClick (a){
                 let temp = this.panes.find(function (val) {
                     return val.key == a
                 });
@@ -166,12 +154,14 @@
             },
             // 监听标签页被删除和添加时的执行事件
             onEdit(targetKey, action) {
+                // targetKey 被点击的标签页的key
+                // action 值只有remove和add
                 this[action](targetKey) //
             },
             // 删除标签页执行，targetkey是被点击删除的那个标签页的key
             remove(targetKey) {
                 if (this.panes.length === 1) {
-                    alert('最后一个了');
+                    this.$message.warn('只有最后一个了,请手下留情~~');
                     return
                 }
                 // 删除被点击的标签页，
@@ -182,7 +172,7 @@
                 this.panes = newPanes;
             },
             // 内置的添加标签页方法。目前没用到。——现在使用的是methods中的handleClick
-            add(targetKey) {
+            add (targetKey){
 
             },
         },
@@ -198,16 +188,15 @@
         background: rgba(255, 255, 255, .2);
         margin: 16px;
     }
-
     .tabs a {
         text-decoration: none;
     }
-
-    .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
+    /*标签页的背景颜色*/
+    .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab  {
         background-color: #dadada;
     }
-
-    .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
+    /*当前被选中标签页的背景颜色*/
+    .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active  {
         background-color: #fff;
     }
 </style>
