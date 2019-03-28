@@ -18,7 +18,7 @@
                             mode="inline"
                     >
                         <!--在此处遍历a-sub-menu-->
-                        <a-sub-menu v-for="par in list" :key="par.name" v-if="par.name!='empty'">
+                        <a-sub-menu v-for="par in list" :key="par.name" v-if="par.meta.cname!='empty'">
                             <!--一级菜单的图标和内容-->
                             <span slot="title" v-if="par.meta.icon">
                                 <a-icon :type="par.meta.icon"/><span>{{par.meta.cname}}</span>
@@ -101,7 +101,7 @@
             return {
                 collapsed: false,
                 list: list,
-                activeKey: 'company',
+                activeKey: '',
                 newTabIndex: 0,
                 panes:[],//标签页数组
                 currentOpenKeys:[],
@@ -111,9 +111,6 @@
         methods: {
             //点击侧边栏的每个item执行 —— 添加 一个标签页
             handleClick (e) {
-                this.currentOpenKeys = [];
-                this.currentSelectedKeys = [];
-                // 更新当前应该被选中的标签
                 // 新建一个标签按钮
                 let openKeysStr ='';
                 let openKeys ='';
@@ -121,11 +118,12 @@
                 if (this.$route.query.mySelect){
                     openKeysStr = this.$route.query.mySelect.substr(this.$route.query.mySelect.indexOf('-')+1);
                     openKeys = [];
+                    /*判断“当前需要被展开的数组值是一个还是两个”。有加号则代表是两个*/
                     openKeysStr.indexOf('+') >= 0 ? openKeys = openKeysStr.split('+') : openKeys.push(openKeysStr);
                     selectedKeys = [];
                     selectedKeys.push(this.$route.query.mySelect.substr(0,this.$route.query.mySelect.indexOf('-')));
-                    this.currentOpenKeys = [...openKeys];
-                    this.currentSelectedKeys = [...selectedKeys];
+                    this.currentOpenKeys = openKeys;
+                    this.currentSelectedKeys = selectedKeys;
                 }
 
                 let tab = {
@@ -135,10 +133,13 @@
                     openKeys:openKeys || [],
                     selectedKeys:selectedKeys || [],
                 };
+                // 更新当前应该被选中的标签
                 this.activeKey = tab.path;
                 //如果已经存在这个tab标签页。则不再重复添加，否则添加
-                let temp = this.panes.map(function(val){return JSON.stringify(val)});
-                if (!temp.includes(JSON.stringify(tab))) {
+                if (this.panes.every(function (val) {
+                    let flag = val.key != tab.key && val.path != tab.path && val.title != tab.title;
+                    return flag
+                })) {
                     this.panes.push(tab);
                 }
             },
@@ -156,13 +157,14 @@
             onEdit(targetKey, action) {
                 // targetKey 被点击的标签页的key
                 // action 值只有remove和add
-                this[action](targetKey) //
+                this[action](targetKey)
             },
             // 删除标签页执行，targetkey是被点击删除的那个标签页的key
             remove(targetKey) {
+                // 如果只有一条了，则禁止删除
                 if (this.panes.length === 1) {
-                    this.$message.warn('只有最后一个了,请手下留情~~');
-                    return
+                    this.$message.warn('只有最后一个了,请手下留情~~',1);
+                    return false
                 }
                 // 删除被点击的标签页，
                 let newPanes = this.panes.filter(function (val) {
@@ -176,6 +178,7 @@
 
             },
         },
+        // 页面加载时先添加一个tab标签
         created() {
             this.handleClick();
         }
