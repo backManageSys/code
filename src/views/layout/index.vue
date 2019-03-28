@@ -167,7 +167,9 @@
                 this.showState = true;
             },
             changeHide() {
-                this.showState = false;
+                setTimeout(() => {
+                    this.showState = false;
+                }, 2000);
             },
             tabClick(a) {
                 let temp = this.panes.find(function (val) {
