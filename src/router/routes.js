@@ -132,13 +132,13 @@ const routes = [
                         path: 'cardAdd',
                         name:'cardAdd',
                         component:HelloWorld,
-                        meta: {cname: '公司所有银行卡', role: '公司所有银行卡',requireAuth: requireAuth,},
+                        meta: {cname: '公司添加银行卡', role: '公司添加银行卡',requireAuth: requireAuth,},
                     },
                     {
                         path: 'cards',
                         name:'cards',
                         component:HelloWorld,
-                        meta: {cname: '公司添加银行卡', role: '公司添加银行卡',requireAuth: requireAuth,},
+                        meta: {cname: '公司所有银行卡', role: '公司所有银行卡',requireAuth: requireAuth,},
                     },
                     {
                         path: 'personalCards',

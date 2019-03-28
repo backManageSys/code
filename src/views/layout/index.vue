@@ -69,11 +69,6 @@
                                 </div>
                             </template>
                         </a-layout-header>
-                        <!--面包屑导航-->
-                        <a-breadcrumb style="margin: 16px 0">
-                            <a-breadcrumb-item>User</a-breadcrumb-item>
-                            <a-breadcrumb-item>Bill</a-breadcrumb-item>
-                        </a-breadcrumb>
                         <!--主体内容-->
                         <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
                             <div>
