@@ -430,8 +430,17 @@ const routes = [
             },
         ]
     },
-    {path:'*',name:'empty',redirect:'/company'},
-    {path:'/login',name:'empty',component:() => import('@/components/Login/login.vue')},
-    {path:'/',name:'empty',redirect:'/company'}
+    {
+        path:'*',redirect:'/company',
+        meta:{ cname : 'empty'},
+    },
+    {
+        path:'/login',component:() => import('@/components/Login/login.vue'),
+        meta:{ cname : 'empty'},
+    },
+    {
+        path:'/',redirect:'/company',
+        meta:{ cname : 'empty'},
+    }
 ];
 export default routes

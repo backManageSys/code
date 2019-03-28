@@ -3,55 +3,95 @@
     <div id="login">
         <div class="loginBox">
             <h1>用户管理系统</h1>
-            <a-form v-on:submit="submit">
+            <a-form @submit="handleSubmit">
                 <!--用户名-->
                 <p class="inputParent">
-                    <a-input class="input" size="large" placeholder="user name" required v-model="userName" ref="userNameInput">
+                    <a-input
+                        class="input"
+                        size="large"
+                        placeholder="user name"
+                        v-decorator="['userName',{ rules: [{ required: true, message: 'Please input your username!' }] }]"
+                        v-model="userName"
+                        ref="userNameInput">
                         <a-icon slot="prefix" type="user" />
                         <a-icon v-if="userName" slot="suffix" type="close-circle" @click="emitEmptyUser" />
                     </a-input>
-                    <span class="userErr mark">用户名不合法</span>
+                    <span class="userErr mark" v-show="userNameValidMark">用户名不合法</span>
                 </p>
                 <!--密码框-->
                 <p class="inputParent">
-                    <a-input class="input" size="large" placeholder="password" required type="password" v-model="password" ref="passwordInput">
+                    <a-input
+                        class="input"
+                        size="large"
+                        placeholder="password"
+                        v-decorator="['password',{ rules: [{ required: true, message: 'Please input your Password!' }] }]"
+                        type="password"
+                        v-model="password"
+                        ref="passwordInput">
                         <a-icon slot="prefix" type="code" />
                         <a-icon v-if="password" slot="suffix" type="close-circle" @click="emitEmptyPsw" />
                     </a-input>
-                    <span class="passwordErr mark">密码有误</span>
+                    <span class="passwordErr mark" v-show="userNameValidMark">密码有误</span>
                 </p>
-                <a-button size="large" loading="loading" class="submit" block type="primary">登陆</a-button>
+                <a-button size="large" html-type="submit"  class="submit" block type="primary">登陆</a-button>
             </a-form>
         </div>
 
     </div>
 </template>
 <script>
+    import { isvalidUsername,isvalidPassword } from '@/tools/validate'
+    import {cookieSetToken} from '@/tools/Cookie'
     export default {
         name:'login',
         data(){
             return {
-                userName:'',
-                password:'',
+                userName:'',//输入框的值
+                password:'',//输入框的值
+                userNameValidMark:false,//控制提示语是否显示
+                passwordValidMark:false,//控制提示语是否显示
             }
         },
         methods :{
+            handleSubmit (e){
+                e.preventDefault();
+                this.userNameValidMark = isvalidUsername(this.userName) ? false : true;
+                this.passwordValidMark = isvalidPassword(this.password) ? false : true;
+                const flagLogin = isvalidUsername(this.userName) && isvalidPassword(this.password);
+                if (flagLogin){
+                    this.$axios.get('http://jsonplaceholder.typicode.com/users').then((response)=>{
+                        console.log(response);
+                        this.$store.state.data.token = response.data[0].name;
+                        window.sessionStorage.setItem('role',response.data[0].name);
+                        this.$message.success('登陆成功');
+                        this.$router.push('/company');
+                    }).catch((err)=>{
+                        console.log(err)
+                    })
+                }
+                return false;
+            },
+            // 点击x清空用户名输入框
             emitEmptyUser () {
                 this.$refs.userNameInput.focus();
                 this.userName = ''
             },
+            // 点击x清空密码输入框
             emitEmptyPsw (){
                 this.$refs.passwordInput.focus();
                 this.password = ''
             },
         },
+        beforeCreate () {
+
+        },
         computed:{
 
         },
-        created() {
+        created (){
 
         },
-        mounted() {
+        mounted (){
 
         },
     }
