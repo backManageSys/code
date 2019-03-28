@@ -30,7 +30,7 @@
     }
 </script>
 
-<style>new
+<style>
     #components-layout-demo-side .logo {
         height: 32px;
         background: rgba(255, 255, 255, .2);
