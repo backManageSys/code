@@ -15,6 +15,9 @@
 * */
 import layout from '../views/layout'
 import HelloWorld from '../components/HelloWorld'
+import CheckAnnouncement from '../components/company/announcement/checkAnnouncement'
+import Announcement from '../components/company/announcement'
+import AllTeams from '../components/company/team/teams'
 const requireAuth= true;
 const routes = [
     {
@@ -27,8 +30,14 @@ const routes = [
             {
                 path: 'announcement',
                 name :'announcement',
-                component:HelloWorld,
+                component:Announcement,
                 meta: {cname: '公告管理', role: '公告管理',requireAuth: requireAuth,},
+            },
+            {
+                path: 'checkAnnouncement',
+                name :'checkAnnouncement',
+                component:CheckAnnouncement,
+                meta: {cname: '查看公告', role: '查看公告',requireAuth: requireAuth,},
             },
             {
                 path: 'information',
@@ -45,7 +54,7 @@ const routes = [
                     {
                         path: 'teams',
                         name : 'teams',
-                        component:HelloWorld,
+                        component:AllTeams,
                         meta: {cname: '所有团队', role: '所有团队',requireAuth: requireAuth,},
                     },
                     {

@@ -53,7 +53,7 @@
                 <!--右侧主要内容-->
                 <a-layout>
                     <!--主体部分——包含页头和内容显示区-->
-                    <a-layout-header style="background-color: #fff;text-align: right">
+                    <a-layout-header style="background-color: #fff;text-align: right;box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08)">
                         <div @mouseleave="changeHide">
                             <a-avatar @mouseenter="changeShow"
                                       src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
@@ -221,13 +221,17 @@
         text-decoration: none;
     }
 
+    .tabs{
+        background: #f0f2f5;
+    }
+
     /*标签页的背景颜色*/
     .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
-        background-color: #dadada;
+        /*background-color: #dadada;*/
     }
 
     /*当前被选中标签页的背景颜色*/
     .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
-        background-color: #fff;
+        /*background-color: #fff;*/
     }
 </style>
