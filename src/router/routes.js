@@ -13,11 +13,12 @@
     }
   }
 * */
-import layout from '../views/layout'
-import HelloWorld from '../components/HelloWorld'
-import CheckAnnouncement from '../components/company/announcement/checkAnnouncement'
-import Announcement from '../components/company/announcement'
-import AllTeams from '../components/company/team/teams'
+import layout from '@/views/layout'
+import HelloWorld from '@/components/HelloWorld'
+import CheckAnnouncement from '@/components/company/announcement/checkAnnouncement'
+import Announcement from '@/components/company/announcement'
+import Team from '@/components/company/team'
+import Teams from '@/components/company/team/teams'
 const requireAuth= true;
 const routes = [
     {
@@ -48,13 +49,13 @@ const routes = [
             {
                 path: 'team',
                 name: 'team',
-                component:HelloWorld,
+                component:Team,
                 meta: {cname: '团队管理', role: '团队管理'},
                 children: [
                     {
                         path: 'teams',
                         name : 'teams',
-                        component:AllTeams,
+                        component:Teams,
                         meta: {cname: '所有团队', role: '所有团队',requireAuth: requireAuth,},
                     },
                     {
