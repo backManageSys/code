@@ -2,7 +2,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import store from '@/store'
-import getToken from '@/tools/Cookie'
+import {cookieGetToken} from '@/tools/Cookie'
 Vue.prototype.$axios = axios; // 特殊情况下可以使用this.$axios，一般使用自定义的
 var root = process.env.BASE_API;// 会根据环境不同自动获取对应环境的接口
 // 自定义封装的 request,
@@ -17,7 +17,7 @@ request.interceptors.request.use(
       console.log(store,'src\\api\\request.js中——打印store');
     // 可以在此处为请求设置请求头
       if (store.getters.token) {
-          config.headers['X-Token'] = getToken()// 让每个请求携带自定义token 请根据实际情况自行修改
+          config.headers['X-Token'] = cookieGetToken()// 让每个请求携带自定义token 请根据实际情况自行修改
       }
     return config
   },

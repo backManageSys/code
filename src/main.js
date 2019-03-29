@@ -11,6 +11,17 @@ Vue.prototype.$axios = axios; // 特殊情况下可以使用this.$axios，一般
 
 Vue.config.productionTip = false;
 
+
+/*
+let rou = router.options.routes.filter(function (val,index) {
+    return index < 3;
+});
+console.log(rou,'rourourou');
+router.options.routes = rou;
+console.log(router,'最终routerrouter');
+*/
+
+
 Vue.use(Antd);
 /* eslint-disable no-new */
 new Vue({
@@ -25,24 +36,9 @@ new Vue({
             maxCount: 3,
         })
     },
+
     components: {App},
     template: '<App/>'
 });
 
-// router.beforeEach((to, from, next) => {
-//     if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
-//         // if (store.state.token) {  // 通过vuex state获取当前的token是否存在
-//         //     next();
-//         // }
-//         // else {
-//             next({
-//                 path: '/login',
-//                 query: {redirect: to.fullPath}  // 将跳转的路由path作为参数，登录成功后跳转到该路由
-//             })
-//         // }
-//     }
-//     else {
-//         next();
-//     }
-// });
 

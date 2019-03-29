@@ -6,7 +6,7 @@
 </template>
 <script>
     export default {
-        name:'cardAdd ',
+        name:'cardAdd',
         data(){
             return {
 

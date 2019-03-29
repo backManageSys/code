@@ -1,5 +1,5 @@
-<!--项目主组件，包含了页头和左侧导航菜单，以及路由出口  也就是主内容区-->
 
+<!--项目主组件layout，包含了页头和左侧导航菜单，以及路由出口  也就是主内容区-->
 <template>
     <div id="layout">
         <template>
@@ -12,7 +12,7 @@
                             theme="dark"
                             :defaultSelectedKeys="currentSelectedKeys"
                             :defaultOpenKeys="currentOpenKeys"
-                            :selectedKeys="currentSelectedKeys"
+                            v-model="currentSelectedKeys"
                             :openKeys.sync="currentOpenKeys"
                             mode="inline"
                     >
@@ -26,8 +26,8 @@
                             <!--二级菜单-->
                             <template v-for="son in par.children">
                                 <!--三级菜单——如果当前二级菜单有children则说明这个二级菜单有三级菜单-->
-                                <a-sub-menu v-if="son.children" :key="son.name">
-                                    <span slot="title">{{son.meta.cname}}</span>
+                                <a-sub-menu v-if="son.children" :key="son.name" :title="son.meta.cname">
+                                    <!--<span slot="title">{{son.meta.cname}}</span>-->
                                     <a-menu-item v-for="item in son.children" :key="item.name">
                                         <!--mySelectedKeys点击标签页时需要用来更新——当前选中的Slider项-->
                                         <!--myOpenKeys点击标签页时需要用来更新——当前展开的Slider选项组,myOpenKeys:par.name+','+son.name-->
@@ -53,17 +53,29 @@
                 <!--右侧主要内容-->
                 <a-layout>
                     <!--主体部分——包含页头和内容显示区-->
-                    <a-layout-header style="background-color: #fff;text-align: right">
-                        <div @mouseleave="changeHide">
-                            <a-avatar @mouseenter="changeShow"
-                                      src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
-                            <div v-if="showState"
-                                 style="background: #fff; z-index: 9999;position: absolute;right: 20px;height: 35px; line-height: 35px;width: 85px;text-align: center;margin-top: 5px;border: 1px solid #9999;border-radius: 5px;">
-                                <router-link to="/login">
-                                    <a-icon type="poweroff"/>
-                                    <span>退出登录</span>
-                                </router-link>
-                            </div>
+                    <a-layout-header class="header">
+                        <div class="funDop">
+                            <a-dropdown placement="bottomRight">
+                                <a-button>注销</a-button>
+                                <a-menu slot="overlay">
+                                    <a-menu-item>
+                                        <div class="" @click="">
+                                            <router-link to="/">
+                                                <a-icon type="user"/>
+                                                <span>个人中心</span>
+                                            </router-link>
+                                        </div>
+                                    </a-menu-item>
+                                    <a-menu-item>
+                                        <div class="" @click="">
+                                            <router-link to="/login">
+                                                <a-icon type="poweroff"/>
+                                                <span>退出登录</span>
+                                            </router-link>
+                                        </div>
+                                    </a-menu-item>
+                                </a-menu>
+                            </a-dropdown>
                         </div>
                     </a-layout-header>
                     <a-layout-content style="margin:16px;background-color: #fff;">
@@ -88,12 +100,6 @@
                                 </a-tabs>
                             </div>
                         </template>
-                        <!--面包屑导航-->
-                        <!--<a-breadcrumb style="margin: 16px 0">-->
-                        <!--<a-breadcrumb-item>User</a-breadcrumb-item>-->
-                        <!--<a-breadcrumb-item>Bill</a-breadcrumb-item>-->
-                        <!--</a-breadcrumb>-->
-                        <!--主体内容-->
                         <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
                             <div>
                                 <transition name="fade-transform" mode="out-in">
@@ -109,20 +115,20 @@
 </template>
 
 <script>
-    import list from '../../router/routes'
+    import routes from '@/router/routes'
+    import { sesGetState } from "@/tools/session";
 
     export default {
         name: 'layout',
         data() {
             return {
                 collapsed: false,
-                list: list,
+                list: routes.routes,
                 activeKey: '',
                 newTabIndex: 0,
                 panes: [],//标签页数组
                 currentOpenKeys: [],
                 currentSelectedKeys: [],
-                showState: false
             }
         },
         methods: {
@@ -139,10 +145,7 @@
                     openKeysStr.indexOf('+') >= 0 ? openKeys = openKeysStr.split('+') : openKeys.push(openKeysStr);
                     selectedKeys = [];
                     selectedKeys.push(this.$route.query.mySelect.substr(0, this.$route.query.mySelect.indexOf('-')));
-                    this.currentOpenKeys = openKeys;
-                    this.currentSelectedKeys = selectedKeys;
                 }
-
                 let tab = {
                     title: this.$route.meta.cname,
                     path: this.$route.path,
@@ -152,6 +155,7 @@
                 };
                 // 更新当前应该被选中的标签
                 this.activeKey = tab.path;
+                // this.currentSelectedKeys = [];
                 //如果已经存在这个tab标签页。则不再重复添加，否则添加
                 if (this.panes.every(function (val) {
                     let flag = val.key != tab.key && val.path != tab.path && val.title != tab.title;
@@ -162,14 +166,6 @@
             },
             callback(key) {
                 // console.log(key,'key')
-            },
-            changeShow() {
-                this.showState = true;
-            },
-            changeHide() {
-                setTimeout(() => {
-                    this.showState = false;
-                }, 2000);
             },
             tabClick(a) {
                 let temp = this.panes.find(function (val) {
@@ -229,5 +225,24 @@
     /*当前被选中标签页的背景颜色*/
     .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
         background-color: #fff;
+    }
+    .header  {
+        background-color: #fcfcfc;
+        height:55px;
+        line-height: 55px;
+    }
+    .header:after  {
+        content: '';
+        display: block;
+        clear: both;
+    }
+    .funDop  {
+        float: right;
+    }
+    .ant-menu-submenu .ant-menu-sub  {
+        transition: background 0.1s;
+    }
+    a {
+        transition: color 0.05s;
     }
 </style>
