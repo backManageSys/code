@@ -155,7 +155,6 @@
                 };
                 // 更新当前应该被选中的标签
                 this.activeKey = tab.path;
-                // this.currentSelectedKeys = [];
                 //如果已经存在这个tab标签页。则不再重复添加，否则添加
                 if (this.panes.every(function (val) {
                     let flag = val.key != tab.key && val.path != tab.path && val.title != tab.title;
