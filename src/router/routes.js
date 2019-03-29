@@ -31,6 +31,12 @@ const routes = [
                 meta: {cname: '公告管理', role: '公告管理', requireAuth: requireAuth,},
             },
             {
+                path: 'checkAnnouncement',
+                name: 'checkAnnouncement',
+                component: ()=> import('@/components/company/announcement/checkAnnouncement/index'),
+                meta: {cname: '查看公告', role: '查看公告', requireAuth: requireAuth,},
+            },
+            {
                 path: 'information',
                 name: 'information',
                 component: ()=> import('@/components/company/information/index'),
